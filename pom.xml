@@ -4,7 +4,7 @@
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
-    </parent>   
+    </parent>
     <artifactId>wro4j-parent</artifactId>
     <modelVersion>4.0.0</modelVersion>
     <groupId>ro.isdc.wro4j</groupId>
@@ -14,9 +14,9 @@
     <inceptionYear>2008</inceptionYear>
     <url>http://code.google.com/p/wro4j/</url>
     <description>
-     The purpose of this project is to reduce the number of requests 
-     needed to load a page and the amount of data to transfer to clients, 
-     achieving drastic improvement of loading times. The resources can be benefit 
+     The purpose of this project is to reduce the number of requests
+     needed to load a page and the amount of data to transfer to clients,
+     achieving drastic improvement of loading times. The resources can be benefit
      also from minification and compression.
     </description>
     <issueManagement>
@@ -95,7 +95,7 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>wro4j-maven-plugin</artifactId>
                 <version>${project.version}</version>
-            </dependency>      
+            </dependency>
       <!-- Other Dependencies -->
             <dependency>
                 <groupId>commons-io</groupId>
@@ -415,6 +415,7 @@
                 <module>wro4j-core</module>
                 <module>wro4j-extensions</module>
                 <module>wro4j-maven-plugin</module>
+                <module>wro4j-runner</module>
             </modules>
         </profile>
         <profile>
@@ -429,7 +430,7 @@
                 <module>wro4j-runner</module>
                 <!--
                 <module>wro4j-osgi</module>
-                -->          
+                -->
             </modules>
         </profile>
     </profiles>

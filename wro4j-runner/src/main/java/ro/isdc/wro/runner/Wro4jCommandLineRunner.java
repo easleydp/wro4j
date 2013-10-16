@@ -52,6 +52,8 @@ import ro.isdc.wro.model.resource.processor.ResourcePostProcessor;
 import ro.isdc.wro.model.resource.processor.ResourcePreProcessor;
 import ro.isdc.wro.model.resource.processor.factory.ConfigurableProcessorsFactory;
 import ro.isdc.wro.model.resource.processor.factory.ProcessorsFactory;
+import ro.isdc.wro.model.resource.support.naming.DefaultHashEncoderNamingStrategy;
+import ro.isdc.wro.model.resource.support.naming.TimestampNamingStrategy;
 import ro.isdc.wro.util.StopWatch;
 import ro.isdc.wro.util.io.UnclosableBufferedInputStream;
 
@@ -91,6 +93,8 @@ public class Wro4jCommandLineRunner {
   private String preProcessorsList;
   @Option(name = "--postProcessors", metaVar = "POST_PROCESSOR", usage = "Comma separated list of post-processors")
   private String postProcessorsList;
+  @Option(name = "--namingStrategy", metaVar = "NAMING_STRATEGY", usage = "Naming strategy to use, if any. Bundles are not renamed by default. Currently, the only supported values are DefaultHashEncoderNamingStrategy and TimestampNamingStrategy.")
+  private String namingStrategy;
 
 
 
@@ -330,6 +334,14 @@ public class Wro4jCommandLineRunner {
     final DefaultStandaloneContextAwareManagerFactory managerFactory = new DefaultStandaloneContextAwareManagerFactory();
     managerFactory.setProcessorsFactory(createProcessorsFactory());
     managerFactory.setModelFactory(createWroModelFactory());
+    if (namingStrategy != null) {
+      if (namingStrategy.equals("DefaultHashEncoderNamingStrategy"))
+        managerFactory.setNamingStrategy(new DefaultHashEncoderNamingStrategy());
+      else if (namingStrategy.equals("TimestampNamingStrategy"))
+        managerFactory.setNamingStrategy(new TimestampNamingStrategy());
+      else
+        throw new IllegalArgumentException("Unrecognised naming strategy: " + namingStrategy);
+    }
     managerFactory.initialize(createStandaloneContext());
     //allow created manager to get injected immediately after creation
     return managerFactory;
